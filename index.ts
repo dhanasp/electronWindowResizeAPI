@@ -1,4 +1,4 @@
-import { BrowserWindow, IpcMain, IpcRenderer } from "electron";
+
 import { ElectronShell } from "./models/ElectronShell";
 
 interface Boundries {
@@ -6,14 +6,14 @@ interface Boundries {
     height: number;
 }
 
-export const registerMainProcessListener = (browserWindow: BrowserWindow, mainProcess: IpcMain) => {
+export const registerMainProcessListener = (browserWindow : any, mainProcess :any) => {
     const electronShell = new ElectronShell(browserWindow);
-    mainProcess.on('resize_app', (event, eventData: Boundries) => {
+    mainProcess.on('resize_app', (eventData: Boundries) => {
         electronShell.resize(eventData);
     });
 }
 
-export const registerWindowEventListener = (window: Window, ipcRenderer: IpcRenderer) => {
+export const registerWindowEventListener = (window: Window, ipcRenderer: any) => {
     window.addEventListener('RESIZE_APP',
         (event: MessageEvent) => {
             ipcRenderer.send("resize_app", event.data);
