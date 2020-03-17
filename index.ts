@@ -1,23 +1,19 @@
-
-import { ElectronShell } from "./models/ElectronShell";
+import { ElectronShell, Boundary } from "./models/ElectronShell";
 import { BrowserWindow, IpcMain, IpcRenderer } from "electron";
+import { updateUserSettings } from "./models/userSettings";
+import { resizeWindow } from "./models/resizeWindow";
 
-interface Boundries {
-    width: number;
-    height: number;
-}
-
-export const registerMainProcessListener = (browserWindow: BrowserWindow, mainProcess: IpcMain) => {
+const registerForMainProcess = (browserWindow: BrowserWindow, mainProcess: IpcMain) => {
     const electronShell = new ElectronShell(browserWindow);
     console.log("registering main process listener - npm module");
 
-    mainProcess.on('resize_app', (_event: any, eventData: Boundries) => {
+    mainProcess.on('resize_app', (_event: any, eventData: Boundary) => {
         console.log("EventData : ", eventData);
         electronShell.resize(eventData);
     });
 }
 
-export const registerWindowEventListener = (window: Window, ipcRenderer: IpcRenderer) => {
+const registerForWindow = (window: Window, ipcRenderer: IpcRenderer) => {
     console.log("registering window listener");
 
     window.addEventListener('RESIZE_APP',
@@ -27,6 +23,12 @@ export const registerWindowEventListener = (window: Window, ipcRenderer: IpcRend
         });
 }
 
-export { updateUserSettings as sdk_updateUserSettings } from "./models/userSettings";
+const frame = { resizeWindow }
+const setting = { updateUserSettings }
+const eventListeners = { registerForMainProcess, registerForWindow };
 
-export { resizeWindow as sdk_resizeWindow } from "./models/resizeWindow";
+export default {
+    frame,
+    setting,
+    eventListeners
+}

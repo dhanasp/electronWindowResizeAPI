@@ -1,6 +1,6 @@
 import { BrowserWindow } from "electron";
 
-export interface Boundries {
+export interface Boundary {
     width: number,
     height: number,
 }
@@ -8,7 +8,7 @@ export interface Boundries {
 export class ElectronShell {
     private browserWindow: BrowserWindow;
     private isExpanded: boolean;
-    private defaultConfig: Boundries;
+    private defaultConfig: Boundary;
 
     constructor(browserWindow: BrowserWindow) {
         this.browserWindow = browserWindow;
@@ -32,9 +32,9 @@ export class ElectronShell {
         return this.defaultConfig.width;
     }
 
-    public resize(boundries: Boundries) {
-        const newWidth = this.shouldExpand() ? boundries.width : this.getDefaultWidth();
-        const newHeight = this.shouldExpand() ? boundries.height : this.getDefaultHeight();
+    public resize(boundary: Boundary) {
+        const newWidth = this.shouldExpand() ? boundary.width : this.getDefaultWidth();
+        const newHeight = this.shouldExpand() ? boundary.height : this.getDefaultHeight();
 
         //https://github.com/electron/electron/issues/15560
         //workaround provided by electron when resizable is set to false

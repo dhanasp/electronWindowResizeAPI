@@ -1,12 +1,10 @@
-import { Boundries } from "./ElectronShell"
+import { Boundary } from "./ElectronShell"
 
-
-
-export const resizeWindow = (boundry: Boundries) => {
+export const resizeWindow = (boundary: Boundary) => {
     const resizeWindowEvent = new MessageEvent("RESIZE_APP", {
         data: {
-            width: boundry.width,
-            height: boundry.height
+            width: boundary.width,
+            height: boundary.height
         }
     })
 
