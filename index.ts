@@ -26,3 +26,5 @@ export const registerWindowEventListener = (window: Window, ipcRenderer: IpcRend
             ipcRenderer.send("resize_app", event.data);
         });
 }
+
+export { updateUserSettings as sdk_updateUserSettings } from "./models/userSettings";
