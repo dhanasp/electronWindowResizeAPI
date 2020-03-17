@@ -28,3 +28,5 @@ export const registerWindowEventListener = (window: Window, ipcRenderer: IpcRend
 }
 
 export { updateUserSettings as sdk_updateUserSettings } from "./models/userSettings";
+
+export { resizeWindow as sdk_resizeWindow } from "./models/resizeWindow";
